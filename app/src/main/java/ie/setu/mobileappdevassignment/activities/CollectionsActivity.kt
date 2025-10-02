@@ -22,7 +22,5 @@ class CollectionsActivity : NavActivity() {
 
         controller.addCollectionView(this, rootContainer)
     }
-
-
 }
 

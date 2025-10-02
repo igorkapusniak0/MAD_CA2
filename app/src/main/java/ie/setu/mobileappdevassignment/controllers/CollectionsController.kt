@@ -47,10 +47,13 @@ class CollectionsController(context: Context) {
             val titleText = view.findViewById<TextView>(R.id.title_text)
             val descriptionText = view.findViewById<TextView>(R.id.description_text)
             val dateText = view.findViewById<TextView>(R.id.date_text)
+            val numberOfSets = view.findViewById<TextView>(R.id.number_of_sets_text)
 
             titleText.text = collection.name
             descriptionText.text = collection.description
             dateText.text = collection.creationDate
+            numberOfSets.text = collection.numberOfSets().toString()
+
 
             rootContainer.addView(view)
             Log.d("added", "collection")

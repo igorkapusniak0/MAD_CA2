@@ -37,6 +37,39 @@ class AddController(context: Context) {
         return collection
     }
 
+    fun getSetsFromCollectionName(collectionName: String): LegoCollection{
+        var legoCollection = LegoCollection()
+        for (collection in globalData.loggedUserData.collections){
+            if (collection.name == collectionName){
+                legoCollection = collection
+                break
+            }
+        }
+        return legoCollection
+    }
+    fun findCollectionFromSet(legoSet: LegoSet): LegoCollection{
+        var legoCollection = LegoCollection()
+        for (collection in globalData.loggedUserData.collections){
+            for (set in collection.sets){
+                if (set == legoSet){
+                    legoCollection = collection
+                    break
+                }
+            }
+        }
+        return legoCollection
+    }
+    fun removeSet(set: LegoSet){
+        val collection = findCollectionFromSet(set)
+        collection.sets.remove(set)
+        utils.saveUsersToFile()
+    }
+
+    fun removeCollection(collection: LegoCollection){
+        globalData.loggedUserData.collections.remove(collection)
+        utils.saveUsersToFile()
+    }
+
     fun listCollectionNames(): List<String>{
         val collectionNames = mutableListOf<String>()
         for (collection in globalData.loggedUserData.collections) {

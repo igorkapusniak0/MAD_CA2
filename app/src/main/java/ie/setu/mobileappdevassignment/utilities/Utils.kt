@@ -2,6 +2,8 @@ package ie.setu.mobileappdevassignment.utilities
 
 import android.content.Context
 import android.util.Log
+import ie.setu.mobileappdevassignment.models.LegoCollection
+import ie.setu.mobileappdevassignment.models.LegoSet
 import ie.setu.mobileappdevassignment.models.User
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -11,6 +13,7 @@ import java.time.format.DateTimeFormatter
 
 class Utils(private val context: Context) {
     val saveFileName = "saveFile.JSON"
+    private var globalData = GlobalData
 
     fun saveUsersToFile() {
         val jsonString = Json.encodeToString(GlobalData.usersData)
@@ -36,9 +39,29 @@ class Utils(private val context: Context) {
 
     }
 
+    fun isLoggedInUser(username: String): Boolean{
+        var retVal = false
+        if (username == globalData.loggedUserData.name){
+            retVal = true
+        }
+        return retVal
+    }
+
+    fun getUserByName(userName: String): User{
+        var retUser = User ()
+        for(user in globalData.usersData){
+            if (userName == user.name){
+                retUser = user
+                break
+            }
+        }
+        return retUser
+    }
     fun getDate(): String{
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         val current = LocalDateTime.now().format(formatter)
         return current
     }
+
+
 }

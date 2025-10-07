@@ -1,5 +1,7 @@
 package ie.setu.mobileappdevassignment.utilities
 
+import ie.setu.mobileappdevassignment.models.LegoCollection
+import ie.setu.mobileappdevassignment.models.LegoSet
 import ie.setu.mobileappdevassignment.models.User
 import kotlinx.serialization.Serializable
 
@@ -7,6 +9,9 @@ import kotlinx.serialization.Serializable
 object GlobalData {
     val usersData = mutableListOf<User>()
     var loggedUserData = User()
+
+
+
 
     override fun toString(): String {
         var users = ""

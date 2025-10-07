@@ -1,26 +1,31 @@
 package ie.setu.mobileappdevassignment.activities
 
-import android.os.Bundle
-import android.widget.LinearLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import ie.setu.mobileappdevassignment.R
+import ie.setu.mobileappdevassignment.controllers.AddController
 import ie.setu.mobileappdevassignment.controllers.SetsController
-import ie.setu.mobileappdevassignment.databinding.ActivityCollectionsBinding
+import ie.setu.mobileappdevassignment.databinding.ActivityListBinding
+import ie.setu.mobileappdevassignment.utilities.NavigationUtils
 
+class SetsActivity : ListActivity<ActivityListBinding>() {
 
-class SetsActivity: NavActivity() {
-    private lateinit var binding: ActivityCollectionsBinding
     private lateinit var controller: SetsController
-    private lateinit var rootController: LinearLayout
+    private lateinit var addController: AddController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun inflateBinding() = ActivityListBinding.inflate(layoutInflater)
 
-        binding = ActivityCollectionsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun setupContent() {
+        val navView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        NavigationUtils.setupBottomNavigation(this, navView)
+
         controller = SetsController(this)
-
-        rootController = findViewById(R.id.rootContainer)
-        controller.addSetView(this, rootController)
+        addController = AddController(this)
+        val collectionName = intent.getStringExtra("collection_name")
+        val sets = if (collectionName == null){
+            controller.getUserSets()
+        } else{
+            addController.getSetsFromCollectionName(collectionName).sets
+        }
+        controller.addSetView(this, rootContainer, sets)
     }
-
 }

@@ -1,26 +1,24 @@
 package ie.setu.mobileappdevassignment.activities
 
-import android.os.Bundle
-import android.widget.LinearLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import ie.setu.mobileappdevassignment.R
 import ie.setu.mobileappdevassignment.controllers.CollectionsController
-import ie.setu.mobileappdevassignment.databinding.ActivityCollectionsBinding
+import ie.setu.mobileappdevassignment.databinding.ActivityListBinding
+import ie.setu.mobileappdevassignment.utilities.NavigationUtils
 
-class CollectionsActivity : NavActivity() {
-    private lateinit var binding: ActivityCollectionsBinding
+class CollectionsActivity : ListActivity<ActivityListBinding>() {
+
     private lateinit var controller: CollectionsController
-    private lateinit var rootContainer: LinearLayout
 
+    override fun inflateBinding() = ActivityListBinding.inflate(layoutInflater)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityCollectionsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun setupContent() {
+        val navView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        NavigationUtils.setupBottomNavigation(this, navView)
+
         controller = CollectionsController(this)
+        val collections = controller.getUserCollections()
+        controller.addCollectionView(this, rootContainer, collections)
 
-        rootContainer = findViewById(R.id.rootContainer)
-
-        controller.addCollectionView(this, rootContainer)
     }
 }
-

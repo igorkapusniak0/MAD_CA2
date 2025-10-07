@@ -1,4 +1,7 @@
 package ie.setu.mobileappdevassignment.activities
 
-class MapActivity: NavActivity() {
+import androidx.appcompat.app.AppCompatActivity
+
+class MapActivity: AppCompatActivity() {
+
 }

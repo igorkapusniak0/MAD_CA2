@@ -1,6 +1,7 @@
 package ie.setu.mobileappdevassignment.models
 
 import kotlinx.serialization.Serializable
+import ie.setu.mobileappdevassignment.models.LegoSet
 
 @Serializable
 data class LegoCollection(
@@ -16,16 +17,6 @@ data class LegoCollection(
     fun numberOfSets() : Int {
         val numberOfSets : Int = sets.size
         return numberOfSets
-    }
-
-    fun minimumAge() : Int{
-        var minAge = 0
-        for (set in sets){
-            if (set.ageRange > minAge) {
-                minAge = set.ageRange
-            }
-        }
-        return minAge
     }
 
     override fun toString(): String {

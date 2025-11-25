@@ -39,10 +39,23 @@ class AddController(context: Context) {
 
     fun getSetsFromCollectionName(collectionName: String): LegoCollection{
         var legoCollection = LegoCollection()
+        var publicCollection = true
         for (collection in globalData.loggedUserData.collections){
             if (collection.name == collectionName){
                 legoCollection = collection
+                publicCollection = false
                 break
+            }
+
+        }
+        if (publicCollection){
+            for (user in globalData.usersData){
+                for (collection in user.collections){
+                    if (collection.name == collectionName){
+                        legoCollection = collection
+                        break
+                    }
+                }
             }
         }
         return legoCollection
